@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block title %}Order #{{ order.id }}{% endblock %}
+{% load static %}
+
+{% block style %}
+
+
+{% endblock %}
+
+
+{% block content %}
+{% load humanize %}
+{% load custom_filters %}
+
+
+<h1>Order #{{ order.id }}</h1>
+<h2>Order Items:</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in cart_items %}
+  <tr>
+    <td>{{ item.product.title }}</td>
+    <td>{{ item.product.price }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>{{ item.product.price|floatformat:2|intcomma }} * {{ item.quantity }} = {{ item.product.price|mul:item.quantity|floatformat:2|intcomma }}</td>
+    <td>
+      <form action="{% url 'cart:remove-from-cart' item.product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">Remove from Cart</button>
+      </form>
+    </td>
+  </tr>
+{% endfor %}
+    <tr>
+      <td colspan="3"><strong>Total:</strong></td>
+      <td><strong>${{ order.total_price }}</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>{{ order.shipping_address }}</p>
+
+{% endblock %}

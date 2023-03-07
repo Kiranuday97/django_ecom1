@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block title %}Zshopy {% endblock %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static '/css/products.css'%}">
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<main>
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center"
+    style=" color: antiquewhite; background-image: url(https://thumbs.dreamstime.com/b/sneakers-family-two-different-like-symbol-mother-father-one-small-sneaker-like-symbol-child-78014112.jpg);">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <h1 class="display-4 fw-normal">Buy your favourite shoes</h1>
+      <p class="lead fw-normal"></p>
+      <a class="btn btn-outline-secondary" href="#contents">Explore</a>
+    </div>
+    <!-- <div class="shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>-->
+  </div>
+
+  <!-- <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+      <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+        <div class="my-3 py-3">
+          <h2 class="display-5">Another headline</h2>
+          <p class="lead">And an even wittier subheading.</p>
+        </div>
+        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+      </div>
+      </div>
+    </div> -->
+
+
+
+    <section style="background-color: #eee;">
+      <div class=" row">
+        {% for item in prdct %}
+        <div class="col-md-4 col-lg-6 col-xl-3">
+          <div class=" card  shadow-lg" style="width: 300px;margin-top: 10px; margin-left: 20px;">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+              <h5 class="card-title m-0">{{ item.title }}</h5>
+              <span class="badge bg-secondary">{{ item.varient}}</span>
+            </div>
+            <div class="card-body">
+              <div class="text-center mb-4">
+                <img src="{{ item.image.url }}" class="card-img-top product-img" alt="{{ item.title }}" />
+              </div>
+              <!-- <p class="card-text">{{ item.description }}</p> -->
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Seller: {{ item.user }}</li>
+                <li class="list-group-item">Price: {{ item.price }}</li>
+              </ul>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <a href="/productview/{{item.id}}" class="btn btn-success">View Details</a>
+              {% if request.user.is_authenticated %}
+              <form method="post" action="{% url 'add-to-cart' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+              </form>
+              {% else %}
+              <p>Please log in to add items to your cart.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        
+        {% endfor %}
+        
+      </div>
+      
+    </section>
+
+
+</main>
+<br><br>
+
+<nav aria-label="Page navigation example">
+  <div class="d-flex justify-content-center" >
+    <ul class="pagination">
+      {% if prdct.has_previous%}
+      <li class="page-item"><a class="page-link" href="?page={{ prdct.previous_page_number }}">Previous</a></li>
+      {% endif %}
+
+      {% if prdct.has_previous%}
+      <li class="page-item"><a class="page-link"
+          href="?page={{ prdct.previous_page_number }}">{{prdct.previous_page_number}}</a></li>
+      {% endif %}
+
+      <li class="page-item active"><a class="page-link" href="">{{prdct.number}}</a></li>
+
+
+      {% if prdct.has_next%}
+      <li class="page-item"><a class="page-link"
+          href="?page={{ prdct.next_page_number }}">{{prdct.next_page_number}}</a></li>
+      {% endif %}
+
+      {% if prdct.has_next%}
+      <li class="page-item"><a class="page-link" href="?page={{ prdct.next_page_number }}">Next</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+
+{% endblock %}

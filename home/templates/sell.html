@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+{% load static %}
+
+{% block style %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="container">
+  <div id="formcont" style="padding-left: 20%; padding-right: 20%;">
+  <h1>Add Product</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add</button>
+  </form>
+</div>
+</div>
+
+{% endblock %}

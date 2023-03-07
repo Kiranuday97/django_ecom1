@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block title %}PRODUCTS {% endblock %}
+{% load static %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+<div class="container py-4 ">
+  <div class="d-flex justify-content-center">
+    <h1>Login</h1>
+    <form class="form-control" method="POST">
+      {% csrf_token %}
+      <h6>Username</h6>
+      {{ login_form.username}}
+      <br>
+      <h6>Password</h6>
+      {{ login_form.password}}
+      <br>
+  
+  <button class="btn btn-primary" type="submit">Login</button>
+  </form>
+</div>
+  <p class="text-center">Don't have an account? <a href="/register" style="color: rgb(255, 255, 255);">Create an
+      account</a>.</p>
+
+</div>
+
+
+
+
+
+<!-- <div class="container" style="width: 500px;">
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert" >
+      {{message}}
+    </div>
+    {% endfor %}
+<form action="/home/" method="post">
+    {% csrf_token %}
+    
+        
+    <div class="mb-3">
+        <label  class="form-label">User Name</label>
+        <input type="text" name="username" class="form-control" id="exampleInputPassword1">
+      </div>
+   
+   
+    <div class="mb-3">
+        <label  class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      </div>
+     
+     <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+</div> -->
+
+{% endblock %}

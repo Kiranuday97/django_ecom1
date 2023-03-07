@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Cart{% endblock %}
+{% load static %}
+
+{% block style %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+<div class="container">
+
+    <div class="view">
+        <div class="row">
+            <div class="col">
+                <img style="width: 500px;" src="{{products.image.url}}" alt="">
+            </div>
+            <div class="col">
+
+                <h5>{{products.title}}</h5>
+                <h6>{{products.varient}}</h6>
+                <h6>Rs.{{products.price}}</h6>
+                <h6>{{products.description}}</h6>
+
+                {% if request.user.is_authenticated %}
+              <form method="post" action="{% url 'add-to-cart' products.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+              </form>
+              {% else %}
+              <p>Please log in to add items to your cart.</p>
+              {% endif %}
+            </div>
+
+            {% if user.is_authenticated%}
+    {% if user.id == products.user.id%}
+    <a href="/product-edit/{{products.id}}"class="btn btn-success btn-block btn-lg">Edit</a>
+    <a href="/product-delete/{{products.id}}"class="btn btn-success btn-block btn-lg">Delete</a>
+   
+    {% endif%}
+    {% endif%}
+
+        </div>
+        <!-- {% if user.is_authenticated%}
+    {% if user.id == products.user.id%}
+    <a href="/product-edit/{{products.id}}"class="btn btn-success btn-block btn-lg">Edit</a>
+    <a href="/product-delete/{{products.id}}"class="btn btn-success btn-block btn-lg">Delete</a>
+   
+    {% endif%}
+    {% endif%} -->
+    </div>
+</div>
+
+{% endblock %}

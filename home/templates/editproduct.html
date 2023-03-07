@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Cart{% endblock %}
+{% load static %}
+
+{% block style %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<h1 class="">Add Post</h1>
+
+<div class="container">
+    <div id="formcont" style="padding-left: 20%; padding-right: 20%;">
+
+        <form action="/product-editsave/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+            <br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

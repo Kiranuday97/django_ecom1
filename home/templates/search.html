@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Cart{% endblock %}
+{% load static %}
+
+{% block style %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+
+
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-4 col-lg-6 col-xl-4">
+
+    <div class="container py-5" id="contents">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card text-black" style="width:18rem;">
+            <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i>
+            <img src="{{ product.image.url }}" class="card-img-top" alt="" />
+            <div class="card-body">
+              <div class="text-center">
+                <h5 class="card-title">{{ product.title  }}</h5>
+                <p class="text-muted mb-4">{{ product.varient}}</p>
+              </div>
+              <div>
+
+                <!-- <div class="d-flex justify-content-between">
+                  <span>{{ product.description }}</span>
+                </div> -->
+              </div>
+              <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                <span>Price</span><span>{{ product.price}}</span>
+              </div>
+              <li class="list-group-item">Seller:{{ product.user }}</li>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <a href="/productview/{{item.id}}" class="btn btn-success btn-block btn-lg">View Details</Details>
+                </a>
+
+                {% if request.user.is_authenticated %}
+                <form method="post" action="{% url 'add-to-cart' product.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </form>
+
+{% else %}
+<p>Please log in to add items to your cart.</p>
+{% endif %}
+
+                <!-- <a href="/add-to-cart/{{item.id}}" class="btn btn-success btn-block btn-lg">Add to cart</Details>
+                  </a> -->
+                <!-- <button class="btn btn-primary" type="button">Buy Now</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% endfor %}
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
